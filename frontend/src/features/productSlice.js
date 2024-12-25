@@ -2,13 +2,23 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios'
 
 export const getProducts = createAsyncThunk(
-    "product/getProducts",
-    async (_, { rejectWithValue }) => {
+    'products/getProducts',
+    async (filters, { rejectWithValue }) => {
         try {
-            const { data } = await axios.get("http://localhost:5000/api/v1/products");
-            return data;
-        } catch (error) {
-            return rejectWithValue(error.response.data);
+            const { keyword, category, minPrice, maxPrice, ratings, page, limit } = filters;
+            const query = new URLSearchParams({
+                keyword,
+                category,
+                minPrice,
+                maxPrice,
+                ratings,
+                page,
+                limit,
+            }).toString();
+            const response = await axios.get(`http://localhost:5000/api/v1/products?${query}`);
+            return response.data;
+        } catch (err) {
+            return rejectWithValue(err.response.data);
         }
     }
 );
@@ -150,7 +160,7 @@ export const getAllReviews = createAsyncThunk(
 
 export const deleteReview = createAsyncThunk(
     "product/deleteReview",
-    async ({reviewId, productId}, { rejectWithValue }) => {
+    async ({ reviewId, productId }, { rejectWithValue }) => {
         try {
             const token = JSON.parse(localStorage.getItem('token'))
             const config = {

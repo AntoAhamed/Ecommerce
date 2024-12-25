@@ -39,11 +39,50 @@ exports.createProduct = catchAsyncErrors(async (req, res, next) => {
 
 // Get All Product
 exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
-  let products = await Product.find();
+  const { keyword, category, minPrice, maxPrice, ratings, page = 1, limit = 4 } = req.query;
+
+  const query = {};
+
+  // Search by keyword
+  if (keyword) {
+    query.name = { $regex: keyword, $options: 'i' }; // Case-insensitive regex for partial matches
+  }
+
+  // Filter by category
+  if (category) {
+    query.category = category;
+  }
+
+  // Filter by price range
+  if (minPrice || maxPrice) {
+    query.price = {};
+    if (minPrice) query.price.$gte = Number(minPrice); // Greater than or equal to minPrice
+    if (maxPrice) query.price.$lte = Number(maxPrice); // Less than or equal to maxPrice
+  }
+
+  // Filter by ratings
+  if (ratings) {
+    query.ratings = { $gte: Number(ratings) }; // Products with ratings greater than or equal to ratings
+  }
+
+  // Pagination
+  const skip = (Number(page) - 1) * Number(limit);
+
+  // Count total products for pagination metadata
+  const totalProducts = await Product.countDocuments(query);
+
+  // Fetch products with filters, sorting, and pagination
+  const products = await Product.find(query)
+    .sort({ createdAt: -1 }) // Sort by newest first
+    .skip(skip)
+    .limit(Number(limit));
 
   res.status(200).json({
     success: true,
     products,
+    totalProducts,
+    totalPages: Math.ceil(totalProducts / limit),
+    currentPage: Number(page),
   });
 });
 
