@@ -14,7 +14,7 @@ export default function Home() {
 
     return (
         <>
-            <div className='bg-orange-600 h-lvh text-white flex flex-col justify-center items-center rounded-br-full'>
+            <div className='bg-orange-600 h-lvh text-white flex flex-col justify-center items-center rounded-br-full rounded-tr-full rounded-bl-full'>
                 <h1 className='lg:text-6xl md:text-5xl sm:text-4xl font-bold mb-6'>Welcome To Ecommerce</h1>
                 <p className='text-xl'>You can get whatever you want</p>
             </div>

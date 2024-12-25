@@ -6,6 +6,7 @@ import Loader from '../layout/Loader';
 import Slider from '@mui/material/Slider';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
+import { Button, TextField } from '@mui/material';
 
 function Products() {
   const dispatch = useDispatch()
@@ -21,6 +22,10 @@ function Products() {
       {isLoading ? <Loader /> :
         <div className='grid lg:grid-cols-4 sm:grid-cols-1 gap-4'>
           <div className='border-r p-4'>
+            <div className='flex justify-between mb-5'>
+              <TextField id="outlined-basic" label="Search for product..." variant="outlined" size='small' className='w-full' />
+              <Button variant='contained' size='small'>Search</Button>
+            </div>
             <div>
               <p>Price</p>
               <Slider
