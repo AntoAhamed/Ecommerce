@@ -91,7 +91,7 @@ exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
   try {
     await sendEmail({
       email: user.email,
-      subject: `Ecommerce Password Recovery`,
+      subject: "Ecommerce Password Recovery",
       message,
     });
 
@@ -132,7 +132,7 @@ exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
   }
 
   if (req.body.newPassword !== req.body.confirmPassword) {
-    return next(new ErrorHander("Password does not password", 400));
+    return next(new ErrorHander("Password does not matched", 400));
   }
 
   user.password = req.body.newPassword;
@@ -156,7 +156,7 @@ exports.getUserDetails = catchAsyncErrors(async (req, res, next) => {
 
 // update User password
 exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
-  const { newPassword, oldPassword, confirmPassword } = req.body
+  const { oldPassword, newPassword, confirmPassword } = req.body
 
   const user = await User.findById(req.user.id).select("+password");
 

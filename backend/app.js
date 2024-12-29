@@ -1,5 +1,4 @@
 const express = require("express");
-const app = express();
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const fileUpload = require('express-fileupload')
@@ -7,6 +6,8 @@ const cors = require("cors");
 const path = require("path");
 
 const errorMiddleware = require("./middlewares/error");
+
+const app = express();
 
 // Config
 if (process.env.NODE_ENV !== "PRODUCTION") {
