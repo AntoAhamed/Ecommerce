@@ -9,7 +9,7 @@ function UpdateOrder() {
     const { id } = useParams()
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const { isLoading, orderInfo, error, success, message } = useSelector((state) => state.order)
+    const { isLoading, orderInfo, error } = useSelector((state) => state.order)
 
     let options = orderInfo?.order?.orderStatus === 'Processing' ? [
         'Processing', 'Shipped', 'Delivered'
@@ -19,17 +19,14 @@ function UpdateOrder() {
 
     const [status, setStatus] = useState(options[0])
 
-    console.log(status)
-
     const handleProcess = () => {
-        dispatch(updateOrder({id, status}))
+        dispatch(updateOrder({ id, status }))
 
-        console.log(success)
-
-        if(success){
+        if (orderInfo?.success) {
             alert(`Status updated to ${status}`)
-
             navigate('/admin-orders')
+        }else{
+            console.log(error)
         }
     }
 
@@ -38,15 +35,19 @@ function UpdateOrder() {
     }, [dispatch])
 
     return (
-        <div className='grid grid-cols-5'>
+        <div className={`grid lg:grid-cols-5 ${orderInfo?.order?.orderItems?.length <= 3 && 'lg:h-screen'}`}>
             <Sidebar />
-            <div className='col-span-3 p-6 border-r'>
+            <div className='lg:col-span-3 p-6 border-r'>
                 <p className='text-2xl'>Shipping Info</p>
                 <p className='text-lg'>Name: {orderInfo?.order?.user?.name} </p>
                 <p className='text-lg'>Phone: {orderInfo?.order?.shippingInfo?.number}</p>
-                <p className='text-lg mb-3'>Address: {orderInfo?.order?.shippingInfo?.address + ', ' + orderInfo?.order?.shippingInfo?.city + '-' + orderInfo?.order?.shippingInfo?.pinCode + ', ' + orderInfo?.order?.shippingInfo?.country}</p>
+                <p className='text-lg mb-5'>Address: {orderInfo?.order?.shippingInfo?.address + ', ' + orderInfo?.order?.shippingInfo?.city + '-' + orderInfo?.order?.shippingInfo?.pinCode + ', ' + orderInfo?.order?.shippingInfo?.country}</p>
                 <p className='text-2xl'>Order Status</p>
-                <p className='text-lg mb-3'>{orderInfo?.order?.orderStatus}</p>
+                <p className={`text-lg mb-5
+                    ${orderInfo?.order?.orderStatus === 'Processing' ? 'text-blue-500' :
+                        orderInfo?.order?.orderStatus === 'Shipped' ? 'text-yellow-500' :
+                            'text-green-500'}
+                    `}>{orderInfo?.order?.orderStatus}</p>
                 <p className='text-2xl mb-2'>Your Order Items</p>
                 {orderInfo?.order?.orderItems.map((element, index) => (
                     <div key={index} className='flex justify-between items-center mb-3'>
@@ -56,9 +57,9 @@ function UpdateOrder() {
                     </div>
                 ))}
                 <hr />
-                <div className='flex justify-between'>
-                    <p className='text-xl mb-2'>Total Amount (With other charges)</p>
-                    <p className='text-xl font-bold mb-2'>${orderInfo?.order?.totalPrice}</p>
+                <div className='flex justify-between py-5'>
+                    <p className='text-xl'>Total Amount (With other charges)</p>
+                    <p className='text-xl font-bold'>${orderInfo?.order?.totalPrice.toFixed(2)}</p>
                 </div>
             </div>
             <div className='flex flex-col items-center p-3'>

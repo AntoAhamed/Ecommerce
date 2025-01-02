@@ -34,9 +34,9 @@ function Dashboard() {
   }, [dispatch])
 
   return (
-    <div className='grid grid-cols-5'>
-      <Sidebar />
-      <div className='col-span-4 p-4 text-center'>
+    <div className='grid lg:grid-cols-5'>
+      <Sidebar active={"dashboard"} />
+      <div className='lg:col-span-4 p-4 text-center'>
         <p className='text-3xl font-semibold'>Dashboard</p>
         <div className='bg-red-400 my-4 py-2 text-white'>
           <p>Total Amount</p>
@@ -56,9 +56,9 @@ function Dashboard() {
             <p>{userInfo && userInfo?.users?.length}</p>
           </div>
         </div>
-        <div className='grid grid-cols-3 py-16'>
-          <div className='col-span-2'>
-            <LineChart />
+        <div className='grid lg:grid-cols-3 md:grid-cols-1 py-16'>
+          <div className='lg:col-span-2'>
+            <LineChart total={orderInfo?.totalAmount?.toFixed(2)} />
           </div>
           <div>
             <DoughnutChart stocks={{inStock, outOfStock}} />

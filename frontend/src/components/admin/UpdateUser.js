@@ -13,7 +13,7 @@ function UpdateUser() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [role, setRole] = useState(roles[0])
-  const {isLoading, userInfo, error, success} = useSelector((state)=>state.user)
+  const {isLoading, userInfo, error} = useSelector((state)=>state.user)
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -26,10 +26,11 @@ function UpdateUser() {
 
     dispatch(updateUser({id, userData}))
 
-    if(success){
+    if(userInfo?.success){
       alert("User updated successfully")
-
       navigate('/admin-users')
+    }else{
+      console.log(error)
     }
   }
 
@@ -44,7 +45,7 @@ function UpdateUser() {
 
   useEffect(()=>{
     fetchData()
-  },[dispatch, userInfo])
+  },[dispatch])
 
   return (
     <div className='grid grid-cols-5'>

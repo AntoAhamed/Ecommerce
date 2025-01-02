@@ -23,7 +23,7 @@ function ForgotPassword() {
     }
 
     return (
-        <div className='border-2' style={{ padding: '5% 15%', margin: '5% 25%' }}>
+        <div className='border-2 bg-gray-100' style={{ padding: '5% 15%', margin: '7% 25%' }}>
             <div className='flex flex-col'>
                 <p className='text-3xl font-semibold text-center mb-3'>Forgot Password</p>
                 <form onSubmit={handleSubmit}>

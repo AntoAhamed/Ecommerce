@@ -35,7 +35,7 @@ function ResetPassword() {
   }
 
   return (
-    <div className='border-2' style={{ padding: '5% 15%', margin: '5% 25%' }}>
+    <div className='border-2 bg-gray-100' style={{ padding: '5% 15%', margin: '5% 25%' }}>
       <p className='text-4xl font-semibold mb-3 text-center'>Reset Password</p>
       <div className='flex flex-col'>
         <form onSubmit={handleSubmit}>

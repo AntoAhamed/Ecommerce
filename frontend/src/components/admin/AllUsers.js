@@ -14,7 +14,7 @@ import { Box } from '@mui/material';
 
 function AllUsers() {
     const dispatch = useDispatch()
-    const { isLoading, userInfo, error, success, message } = useSelector((state) => state.user)
+    const { isLoading, userInfo, error } = useSelector((state) => state.user)
 
     const users = []
 
@@ -27,18 +27,19 @@ function AllUsers() {
         })
     });
 
-    const deleteUserHandler = (id) => {
-        dispatch(deleteUser(id))
+    const deleteUserHandler = async (id) => {
+        await dispatch(deleteUser(id))
+        dispatch(getAllUsers())
     }
 
     useEffect(() => {
         dispatch(getAllUsers())
-    }, [dispatch, success])
+    }, [dispatch])
 
     return (
-        <div className='grid grid-cols-5'>
-            <Sidebar />
-            <div className='col-span-4 p-4 text-center'>
+        <div className={`grid lg:grid-cols-5 ${users.length <= 3 && 'h-screen'}`}>
+            <Sidebar active={"users"} />
+            <div className='lg:col-span-4 p-4 text-center'>
                 <p className='text-3xl font-semibold mb-3'>All Users</p>
                 <TableContainer component={Paper} className='p-5'>
                     <Table sx={{ minWidth: 650, border: '1px solid lightgray' }} aria-label="simple table">

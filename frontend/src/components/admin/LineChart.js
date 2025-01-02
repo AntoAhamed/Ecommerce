@@ -3,13 +3,14 @@ import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS } from 'chart.js/auto'
 import { Chart }            from 'react-chartjs-2'
 
-function LineChart() {
+function LineChart(props) {
+  const { total } = props;
   const data = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    labels: ['From', 'To'],
     datasets: [
       {
         label: 'Sales in USD',
-        data: [100, 120, 244, 540, 440, 355, 450],
+        data: [0, total],
         fill: false,
         backgroundColor: 'rgba(75,192,192,1)',
         borderColor: 'rgba(75,192,192,1)',

@@ -14,7 +14,7 @@ import { Box, Button } from '@mui/material';
 
 function AllReviews() {
     const dispatch = useDispatch()
-    const { isLoading, productInfo, error, success, message } = useSelector((state) => state.product)
+    const { isLoading, productInfo, reviewInfo, error } = useSelector((state) => state.product)
 
     const [productId, setPrductId] = useState('')
 
@@ -24,7 +24,7 @@ function AllReviews() {
 
     const reviews = []
 
-    productInfo && productInfo?.reviews?.forEach((review) => {
+    reviewInfo && reviewInfo?.reviews?.forEach((review) => {
         reviews.push({
             id: review._id,
             user: review.name,
@@ -33,21 +33,25 @@ function AllReviews() {
         })
     })
 
-    const deleteReviewHandler = (reviewId) => {
-        dispatch(deleteReview({ reviewId, productId }))
+    const deleteReviewHandler = async (reviewId) => {
+        await dispatch(deleteReview({ reviewId, productId }))
+
+        if (productId.length === 24) {
+            dispatch(getAllReviews(productId))
+        }
     }
 
     useEffect(() => {
         if (productId.length === 24) {
             dispatch(getAllReviews(productId))
         }
-    }, [dispatch, success])
+    }, [dispatch])
 
     return (
-        <div className='grid grid-cols-5'>
-            <Sidebar />
-            <div className='col-span-4 p-4 text-center'>
-                <div className='flex flex-col items-center mb-3 border py-6'>
+        <div className={`grid lg:grid-cols-5 ${reviews.length <= 3 && 'h-screen'}`}>
+            <Sidebar active={"reviews"} />
+            <div className='lg:col-span-4 p-4 text-center'>
+                <div className='flex flex-col items-center mb-3 border-8 py-6'>
                     <input type='text' value={productId} onChange={(e) => setPrductId(e.target.value)} className='border rounded-md p-2 my-2 w-80' placeholder='Product ID' />
                     <Button variant='contained' onClick={handleProductIdSubmit}>Search for Review</Button>
                 </div>

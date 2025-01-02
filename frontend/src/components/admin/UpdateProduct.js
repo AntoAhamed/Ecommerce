@@ -16,7 +16,7 @@ function UpdateProduct() {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const { isLoading, productInfo, error, success, message } = useSelector((state) => state.product)
+    const { isLoading, productInfo, error } = useSelector((state) => state.product)
 
     const handleImageChange = (e) => {
         try {
@@ -54,58 +54,46 @@ function UpdateProduct() {
         dispatch(updateProduct({ id, updatedData }))
 
         if (productInfo?.success) {
-            alert("Updated")
-
+            alert("Product Updated Successfully")
             navigate('/admin-products')
+        } else {
+            console.log(error)
         }
     }
 
-    const fetchProductData = () => {
+    useEffect(() => {
         dispatch(getProductDetails(id))
-
-        if(productInfo){
-            setName(productInfo?.product?.name)
-            setPrice(productInfo?.product?.price)
-            setDescription(productInfo?.product?.description)
-            setCategory(productInfo?.product?.category)
-            setStock(productInfo?.product?.stock)
-            setImage(productInfo?.product?.image)
-        }
-    }
-
-    useEffect(()=>{
-        fetchProductData()
-    },[dispatch, success])
+    }, [dispatch])
 
     return (
         <div className='grid grid-cols-5'>
             <Sidebar />
-            <div className='col-span-4 p-4' style={{padding: '5% 25%'}}>
+            <div className='col-span-4 p-4' style={{ padding: '5% 25%' }}>
                 <p className='text-4xl font-semibold mb-3 text-center'>Update Product</p>
                 <form encType='multipart/form-data' onSubmit={handleSubmit}>
                     <div className="mb-3">
                         <p className="text-lg">Name</p>
-                        <input type="text" className="border-2 w-full p-2" value={name} onChange={(e) => setName(e.target.value)} required />
+                        <input type="text" className="border-2 w-full p-2" value={name} onChange={(e) => setName(e.target.value)} placeholder={productInfo?.product?.name} required />
                     </div>
 
                     <div className="mb-3">
                         <p className="text-lg">Price</p>
-                        <input type="text" className="border-2 w-full p-2" value={price} onChange={(e) => setPrice(e.target.value)} required />
+                        <input type="text" className="border-2 w-full p-2" value={price} onChange={(e) => setPrice(e.target.value)} placeholder={`$${productInfo?.product?.price}`} required />
                     </div>
 
                     <div className="mb-3">
                         <p className="text-lg">Description</p>
-                        <input type="text" className="border-2 w-full p-2" value={description} onChange={(e) => setDescription(e.target.value)} required />
+                        <input type="text" className="border-2 w-full p-2" value={description} onChange={(e) => setDescription(e.target.value)} placeholder={productInfo?.product?.description} required />
                     </div>
 
                     <div className="mb-3">
                         <p className="text-lg">Category</p>
-                        <input type="text" className="border-2 w-full p-2" value={category} onChange={(e) => setCategory(e.target.value)} required />
+                        <input type="text" className="border-2 w-full p-2" value={category} onChange={(e) => setCategory(e.target.value)} placeholder={productInfo?.product?.category} required />
                     </div>
 
                     <div className="mb-3">
                         <p className="text-lg">Stock</p>
-                        <input type="text" className="border-2 w-full p-2" value={stock} onChange={(e) => setStock(e.target.value)} required />
+                        <input type="text" className="border-2 w-full p-2" value={stock} onChange={(e) => setStock(e.target.value)} placeholder={productInfo?.product?.stock} required />
                     </div>
 
                     <div className="mb-3">

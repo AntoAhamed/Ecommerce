@@ -14,7 +14,7 @@ import { Box } from '@mui/material';
 
 function AllOrders() {
     const dispatch = useDispatch()
-    const { isLoading, orderInfo, error, success, message } = useSelector((state) => state.order)
+    const { isLoading, orderInfo, error } = useSelector((state) => state.order)
 
     const orders = []
 
@@ -27,18 +27,19 @@ function AllOrders() {
         })
     });
 
-    const deleteOrderHandler = (id) => {
-        dispatch(deleteOrder(id))
+    const deleteOrderHandler = async (id) => {
+        await dispatch(deleteOrder(id))
+        dispatch(getAllOrders())
     }
 
     useEffect(() => {
         dispatch(getAllOrders())
-    }, [dispatch, orderInfo])
+    }, [dispatch])
 
     return (
-        <div className='grid grid-cols-5'>
-            <Sidebar />
-            <div className='col-span-4 p-4 text-center'>
+        <div className={`grid lg:grid-cols-5 ${orders.length <= 3 && 'h-screen'}`}>
+            <Sidebar active={"orders"} />
+            <div className='lg:col-span-4 p-4 text-center'>
                 <p className='text-3xl font-semibold mb-3'>All Orders</p>
                 <TableContainer component={Paper} className='p-5'>
                     <Table sx={{ minWidth: 650, border: '1px solid lightgray' }} aria-label="simple table">

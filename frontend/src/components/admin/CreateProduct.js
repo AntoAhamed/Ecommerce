@@ -14,7 +14,7 @@ function CreateProduct() {
     const [imagesPreview, setImagesPreview] = useState([])
 
     const dispatch = useDispatch()
-    const { isLoading, productInfo, error, success, message } = useSelector((state) => state.product)
+    const { isLoading, productInfo, error } = useSelector((state) => state.product)
 
     const handleImageChange = (e) => {
         try {
@@ -55,7 +55,7 @@ function CreateProduct() {
 
         dispatch(createProduct(productData))
 
-        if (success) {
+        if (productInfo?.success) {
             alert("Product Added Successfully")
 
             setName('')
@@ -65,14 +65,16 @@ function CreateProduct() {
             setStock('')
             setImages([])
             setImagesPreview([])
+        }else{
+            console.log(error)
         }
     }
-
+    
     return (
-        <div className='grid grid-cols-5'>
-            <Sidebar />
-            <div className='col-span-4'>
-                <div className='flex flex-col items-center border my-6 mx-44 py-10'>
+        <div className='grid lg:grid-cols-5'>
+            <Sidebar active={"create-products"} />
+            <div className='lg:col-span-4'>
+                <div className='flex flex-col items-center border my-6 mx-44 py-10 bg-gray-100'>
                     <p className='text-3xl font-semibold'>Create Product</p>
                     <form encType='multipart/form-data' onSubmit={handleSubmit}>
                         <div className="mb-3">
@@ -108,7 +110,7 @@ function CreateProduct() {
                             </div>
                             <div>
                                 <p className="text-lg">Image</p>
-                                <input type="file" accept='.png, .jpg, .jpeg' multiple className="border-2 w-full p-2" onChange={handleImageChange} required />
+                                <input type="file" accept='.png, .jpg, .jpeg' multiple className="border-2 w-full p-2 bg-white" onChange={handleImageChange} required />
                             </div>
                         </div>
 

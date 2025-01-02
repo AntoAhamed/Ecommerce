@@ -11,12 +11,12 @@ function DoughnutChart(props) {
         label: 'Stocks',
         data: [stocks.inStock, stocks.outOfStock],
         backgroundColor: [
-          'rgba(255, 99, 132, 0.6)',
-          'rgba(54, 162, 235, 0.6)',
+          '#80ff00',
+          '#ff0000',
         ],
         borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
+          'transparent',
+          'transparent',
         ],
         borderWidth: 1,
       },
