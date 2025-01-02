@@ -2,17 +2,18 @@ import React, { useState } from 'react'
 import { Button } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
-import { resetPassword } from '../../features/userSlice'
+import { loadUser, resetPassword } from '../../features/userSlice'
 
 function ResetPassword() {
   const { token } = useParams()
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const { isLoading, user, error, userInfo } = useSelector((state) => state.user)
+
   const [newPassword, setNewPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  const {isLoading, userInfo, error} = useSelector((state)=>state.user)
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
     const passwords = {
@@ -20,14 +21,16 @@ function ResetPassword() {
       confirmPassword,
     }
 
-    console.log(token, passwords)
+    dispatch(resetPassword({ token, passwords }))
 
-    dispatch(resetPassword({token, passwords}))
-
-    if(userInfo?.success){
+    if (userInfo?.success) {
       alert("Account recovered successfully")
 
+      await dispatch(loadUser())
+
       navigate('/profile')
+    } else {
+      console.log(error)
     }
   }
 

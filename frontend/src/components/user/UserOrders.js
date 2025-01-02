@@ -26,7 +26,7 @@ export default function UserOrders() {
     }, [dispatch])
 
     return (
-        <TableContainer component={Paper} className='p-5'>
+        <TableContainer component={Paper} className={`p-5 ${rows.length <= 3 && 'h-screen'}`}>
             <Table sx={{ minWidth: 650, border: '1px solid lightgray' }} aria-label="simple table">
                 <TableHead>
                     <TableRow sx={{ backgroundColor: 'gray' }}>
@@ -48,7 +48,7 @@ export default function UserOrders() {
                             </TableCell>
                             <TableCell align="left">{row.orderStatus}</TableCell>
                             <TableCell align="left">{row.orderItems.length}</TableCell>
-                            <TableCell align="left">{row.totalPrice}</TableCell>
+                            <TableCell align="left">{row.totalPrice.toFixed(2)}</TableCell>
                             <TableCell align="left">
                                 <Link to={`/order-details/${row._id}`}>
                                     <Button variant='contained'>View</Button>

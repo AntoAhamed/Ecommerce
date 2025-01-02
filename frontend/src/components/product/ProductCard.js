@@ -14,7 +14,7 @@ export default function ProductCard(props) {
         <Card
             component={Link}
             to={`/product-details/${product._id}`}
-            className='p-4'
+            className='p-4 hover:shadow-xl'
             sx={{ maxWidth: 345 }}>
             <CardActionArea sx={{height: '100%'}}>
                 <CardMedia

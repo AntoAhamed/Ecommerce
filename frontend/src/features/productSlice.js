@@ -181,11 +181,10 @@ export const deleteReview = createAsyncThunk(
 );
 
 let initialState = {
-    success: false,
-    productInfo: null,
     isLoading: false,
+    productInfo: null,
+    reviewInfo: null,
     error: null,
-    message: null,
 };
 
 const productSlice = createSlice({
@@ -215,7 +214,6 @@ const productSlice = createSlice({
             .addCase(getProductDetails.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.productInfo = action.payload;
-                state.success = action.payload.success;
             })
             .addCase(getProductDetails.rejected, (state, action) => {
                 state.isLoading = false;
@@ -229,7 +227,6 @@ const productSlice = createSlice({
             .addCase(createProduct.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.productInfo = action.payload;
-                state.success = action.payload.success;
             })
             .addCase(createProduct.rejected, (state, action) => {
                 state.isLoading = false;
@@ -268,8 +265,7 @@ const productSlice = createSlice({
             })
             .addCase(deleteProduct.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.success = action.payload.success;
-                state.message = action.payload.message;
+                state.productInfo = action.payload;
             })
             .addCase(deleteProduct.rejected, (state, action) => {
                 state.isLoading = false;
@@ -282,7 +278,7 @@ const productSlice = createSlice({
             })
             .addCase(createReview.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.success = action.payload;
+                state.reviewInfo = action.payload;
             })
             .addCase(createReview.rejected, (state, action) => {
                 state.isLoading = false;
@@ -295,7 +291,7 @@ const productSlice = createSlice({
             })
             .addCase(getAllReviews.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.productInfo = action.payload;
+                state.reviewInfo = action.payload;
             })
             .addCase(getAllReviews.rejected, (state, action) => {
                 state.isLoading = false;
@@ -308,7 +304,7 @@ const productSlice = createSlice({
             })
             .addCase(deleteReview.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.success = action.payload.success;
+                state.reviewInfo = action.payload;
             })
             .addCase(deleteReview.rejected, (state, action) => {
                 state.isLoading = false;

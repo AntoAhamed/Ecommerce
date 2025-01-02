@@ -156,11 +156,9 @@ export const getOredrDetails = createAsyncThunk(
 );
 
 let initialState = {
-    success: false,
-    orderInfo: null,
     isLoading: false,
+    orderInfo: null,
     error: null,
-    message: null,
 }
 
 const orderSlice = createSlice({
@@ -177,7 +175,6 @@ const orderSlice = createSlice({
             .addCase(createOrder.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.orderInfo = action.payload;
-                state.success = action.payload.success;
             })
             .addCase(createOrder.rejected, (state, action) => {
                 state.isLoading = false;
@@ -191,7 +188,6 @@ const orderSlice = createSlice({
             .addCase(myOrders.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.orderInfo = action.payload;
-                state.success = action.payload.success;
             })
             .addCase(myOrders.rejected, (state, action) => {
                 state.isLoading = false;
@@ -217,7 +213,7 @@ const orderSlice = createSlice({
             })
             .addCase(updateOrder.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.success = action.payload.success;
+                state.orderInfo = action.payload;
             })
             .addCase(updateOrder.rejected, (state, action) => {
                 state.isLoading = false;
@@ -230,7 +226,7 @@ const orderSlice = createSlice({
             })
             .addCase(deleteOrderByUser.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.success = action.payload.success;
+                state.orderInfo = action.payload;
             })
             .addCase(deleteOrderByUser.rejected, (state, action) => {
                 state.isLoading = false;
@@ -243,7 +239,7 @@ const orderSlice = createSlice({
             })
             .addCase(deleteOrder.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.success = action.payload.success;
+                state.orderInfo = action.payload;
             })
             .addCase(deleteOrder.rejected, (state, action) => {
                 state.isLoading = false;

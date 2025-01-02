@@ -11,8 +11,9 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import { Outlet, Link, useNavigate } from 'react-router-dom';
+import { Outlet, Link } from 'react-router-dom';
 import icon from '../../assets/icon.png'
+import { useSelector } from 'react-redux';
 
 const pages = [
     { name: 'Home', path: '/' },
@@ -24,10 +25,11 @@ const pages = [
 const settings = [
     { name: 'Profile', path: '/profile' },
     { name: 'Cart', path: '/cart' },
-    { name: 'Dashboard', path: '/admin-dashboard' },
 ];
 
 function Navbar() {
+    const { user, isAuth } = useSelector(state => state.user);
+
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -45,11 +47,10 @@ function Navbar() {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
-
     return (
         <>
             <AppBar position="static">
-                <Container maxWidth="xl" className='p-3'>
+                <Container maxWidth="xl" className='p-3 bg-blue-500'>
                     <Toolbar disableGutters>
                         <Typography sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
                         <Typography
@@ -143,7 +144,7 @@ function Navbar() {
                         <Box sx={{ flexGrow: 0 }}>
                             <Tooltip title="Open settings">
                                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                    <Avatar alt="User" src={'...'} />
+                                    <Avatar alt="User" src={user?.avatar?.url} />
                                 </IconButton>
                             </Tooltip>
                             <Menu

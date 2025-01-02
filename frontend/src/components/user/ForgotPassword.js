@@ -2,10 +2,12 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { forgetPassword } from '../../features/userSlice'
 import { Button } from '@mui/material'
+import { use } from 'react'
 
 function ForgotPassword() {
     const dispatch = useDispatch()
-    const { isLoading, userInfo, error, success, message } = useSelector((state) => state.user)
+    const { isLoading, user, error, userInfo } = useSelector((state) => state.user)
+
     const [email, setEmail] = useState('')
 
     const handleSubmit = (e) => {
@@ -13,8 +15,10 @@ function ForgotPassword() {
 
         dispatch(forgetPassword({email}))
 
-        if (success) {
-            alert(message)
+        if (userInfo?.success) {
+            alert("Password reset link sent to your email")
+        }else{
+            console.log(error)
         }
     }
 

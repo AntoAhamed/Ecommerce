@@ -30,21 +30,8 @@ function ShippingDetails() {
 
         navigate('/confirm-order')
     }
-
-    const isToken = () => {
-        const token = JSON.parse(localStorage.getItem('token'))
-
-        if (!token) {
-            navigate('/login')
-        }
-    }
-
-    useEffect(() => {
-        isToken()
-    }, [dispatch]);
-
     return (
-        <div className='border-2' style={{ padding: '5% 15%', margin: '5% 20%' }}>
+        <div className='border-2 bg-gray-100' style={{ padding: '5% 15%', margin: '5% 20%' }}>
             <div className='flex flex-col'>
                 <p className='text-4xl font-semibold mb-3 text-center'>Shipping Details</p>
                 <form encType='multipart/form-data' onSubmit={handleSubmit}>

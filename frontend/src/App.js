@@ -28,8 +28,17 @@ import UpdateUser from './components/admin/UpdateUser';
 import NoPage from './components/layout/NoPage';
 import PlacedOrder from './components/cart/PlacedOrder';
 import OrderDetails from './components/user/OrderDetails';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { loadUser } from './features/userSlice';
 
 function App() {
+  const dispatch = useDispatch();
+  const { user, isAuth } = useSelector(state => state.user);
+  useEffect(() => {
+    dispatch(loadUser());
+  }, [dispatch]);
+  console.log(user, isAuth);
   return (
     <div className="App">
       <BrowserRouter>
@@ -38,29 +47,29 @@ function App() {
             <Route index element={<Home />} />
             <Route path="products" element={<Products />} />
             <Route path="product-details/:id" element={<ProductDetails />} />
-            <Route path="login" element={<Login />} />
-            <Route path="signup" element={<Signup />} />
-            <Route path="password/forgot" element={<ForgotPassword />} />
-            <Route path="password/reset/:token" element={<ResetPassword />} />
-            <Route path="profile" element={<Profile />} />
-            <Route path="update-profile" element={<UpdateProfile />} />
-            <Route path="update-password" element={<UpdatePassword />} />
+            <Route path="login" element={isAuth ? <Profile /> : <Login />} />
+            <Route path="signup" element={isAuth ? <Profile /> : <Signup />} />
+            <Route path="password/forgot" element={!isAuth ? <ForgotPassword /> : <NoPage />} />
+            <Route path="password/reset/:token" element={!isAuth ? <ResetPassword /> : <NoPage />} />
+            <Route path="profile" element={isAuth ? <Profile /> : <Login />} />
+            <Route path="update-profile" element={isAuth ? <UpdateProfile /> : <Login />} />
+            <Route path="update-password" element={isAuth ? <UpdatePassword /> : <Login />} />
             <Route path="cart" element={<Cart />} />
-            <Route path="shipping-details" element={<ShippingDetails />} />
-            <Route path="confirm-order" element={<ConfirmOrder />} />
-            <Route path="placed-order" element={<PlacedOrder />} />
-            <Route path="user-orders" element={<UserOrders />} />
-            <Route path="order-details/:id" element={<OrderDetails />} />
+            <Route path="shipping-details" element={isAuth ? <ShippingDetails /> : <Login />} />
+            <Route path="confirm-order" element={isAuth ? <ConfirmOrder /> : <Login />} />
+            <Route path="placed-order" element={isAuth ? <PlacedOrder /> : <Login />} />
+            <Route path="user-orders" element={isAuth ? <UserOrders /> : <Login />} />
+            <Route path="order-details/:id" element={isAuth ? <OrderDetails /> : <Login />} />
 
-            <Route path="admin-dashboard" element={<Dashboard />} />
-            <Route path="admin-products" element={<AllProducts />} />
-            <Route path="admin-create-product" element={<CreateProduct />} />
-            <Route path="admin-update-product/:id" element={<UpdateProduct />} />
-            <Route path="admin-orders" element={<AllOrders />} />
-            <Route path="admin-update-order/:id" element={<UpdateOrder />} />
-            <Route path="admin-users" element={<AllUsers />} />
-            <Route path="admin-update-user/:id" element={<UpdateUser />} />
-            <Route path="admin-reviews" element={<AllReviews />} />
+            <Route path="admin-dashboard" element={(isAuth && user?.role === "admin") ? <Dashboard /> : <NoPage />} />
+            <Route path="admin-products" element={(isAuth && user?.role === "admin") ? <AllProducts /> : <NoPage />} />
+            <Route path="admin-create-product" element={(isAuth && user?.role === "admin") ? <CreateProduct /> : <NoPage />} />
+            <Route path="admin-update-product/:id" element={(isAuth && user?.role === "admin") ? <UpdateProduct /> : <NoPage />} />
+            <Route path="admin-orders" element={(isAuth && user?.role === "admin") ? <AllOrders /> : <NoPage />} />
+            <Route path="admin-update-order/:id" element={(isAuth && user?.role === "admin") ? <UpdateOrder /> : <NoPage />} />
+            <Route path="admin-users" element={(isAuth && user?.role === "admin") ? <AllUsers /> : <NoPage />} />
+            <Route path="admin-update-user/:id" element={(isAuth && user?.role === "admin") ? <UpdateUser /> : <NoPage />} />
+            <Route path="admin-reviews" element={(isAuth && user?.role === "admin") ? <AllReviews /> : <NoPage />} />
 
             <Route path="*" element={<NoPage />} />
           </Route>

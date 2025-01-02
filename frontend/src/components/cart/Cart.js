@@ -15,28 +15,23 @@ import { Button } from '@mui/material';
 function Cart() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const { isAuth } = useSelector((state) => state.user)
     const { cartItems } = useSelector((state) => state.cart)
 
     const removeCartItem = (id) => {
         dispatch(removeItemsFromCart(id))
     }
 
-    const isToken = () => {
-        const token = JSON.parse(localStorage.getItem('token'))
-
-        if (!token) {
+    const handleCheckOut = () => {
+        if (!isAuth) {
             return navigate('/login')
         }
 
         navigate("/shipping-details")
     }
 
-    const handleCheckOut = () => {
-        isToken()
-    }
-
     return (
-        <TableContainer component={Paper} className='p-5'>
+        <TableContainer component={Paper} className={`p-5 ${cartItems?.length <= 3 && 'h-screen'}`}>
             <Table sx={{ minWidth: 650, border: '1px solid lightgray' }} aria-label="simple table">
                 <TableHead>
                     <TableRow sx={{ backgroundColor: 'gray' }}>

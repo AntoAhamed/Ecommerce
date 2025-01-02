@@ -49,7 +49,7 @@ function Products() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className={`flex flex-col justify-center items-center ${productInfo?.products?.length <= 0 ? 'lg:pb-12' : ''}`}>
       <span className="text-3xl p-4 my-4 border-b-2">Products</span>
       {isLoading ? (
         <Loader />
@@ -71,7 +71,7 @@ function Products() {
               </Button>
             </div>
             <div>
-              <p>Price</p>
+              <p className='font-semibold'>Price</p>
               <Slider
                 size="small"
                 value={[filters.minPrice, filters.maxPrice]}
@@ -79,10 +79,11 @@ function Products() {
                 valueLabelDisplay="auto"
                 min={0}
                 max={100000}
+                sx={{ color: 'orange' }}
               />
             </div>
             <div>
-              <p>Categories</p>
+              <p className='font-semibold'>Categories</p>
               <div className="text-gray-500">
                 {['Camera', 'Laptop', 'T-shirt', 'Mystery Box'].map((cat) => (
                   <p
@@ -96,7 +97,7 @@ function Products() {
               </div>
             </div>
             <fieldset className="border p-3 mt-3">
-              <legend>Ratings</legend>
+              <legend className='font-semibold'>Ratings</legend>
               <Slider
                 size="small"
                 value={filters.ratings}
@@ -105,6 +106,7 @@ function Products() {
                 min={0}
                 max={5}
                 step={0.5}
+                sx={{ color: 'orange' }}
               />
             </fieldset>
           </div>

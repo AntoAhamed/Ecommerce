@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import userPic from '../../assets/user.png'
-import { updateProfile } from '../../features/userSlice';
+import { loadUser, updateProfile } from '../../features/userSlice';
 import { Button } from '@mui/material'
+import Loader from '../layout/Loader';
 
 function UpdateProfile() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const { isLoading, userInfo, error } = useSelector((state) => state.user);
+    const { isLoading, user, error, userInfo } = useSelector((state) => state.user);
 
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
@@ -25,14 +26,18 @@ function UpdateProfile() {
 
         dispatch(updateProfile(myData))
 
-        if (userInfo.success === true) {
+        if (userInfo?.success) {
             alert("Profile updated successfully")
 
             setName('')
             setEmail('')
             setAvatar('')
 
+            await dispatch(loadUser())
+
             navigate('/profile')
+        } else {
+            console.log(error)
         }
     }
 
@@ -56,45 +61,36 @@ function UpdateProfile() {
             console.log(e)
         }
     };
-
-    const isToken = () => {
-        const token = JSON.parse(localStorage.getItem('token'))
-
-        if (!token) {
-            navigate('/login')
-        }
-    }
-
-    useEffect(() => {
-        isToken()
-    }, [])
     return (
-        <div className='border-2' style={{ padding: '5% 15%', margin: '5% 25%' }}>
-            <div className='flex flex-col items-center'>
-                <p className='text-4xl font-semibold mb-3'>Update Profile</p>
-                <form encType='multipart/form-data' onSubmit={handleSubmit}>
-                    <div className="mb-3">
-                        <p className="text-lg">Update Name</p>
-                        <input type="text" className="border-2 w-full p-2" value={name} onChange={(e) => setName(e.target.value)} required />
-                    </div>
+        <>
+            {isLoading ? <Loader /> :
+                <div className='border-2 bg-gray-100' style={{ padding: '5% 15%', margin: '5% 25%' }}>
+                    <div className='flex flex-col items-center'>
+                        <p className='text-4xl font-semibold mb-3'>Update Profile</p>
+                        <form encType='multipart/form-data' onSubmit={handleSubmit}>
+                            <div className="mb-3">
+                                <p className="text-lg">Update Name</p>
+                                <input type="text" className="border-2 w-full p-2" value={name} onChange={(e) => setName(e.target.value)} placeholder={user?.name} required />
+                            </div>
 
-                    <div className="mb-3">
-                        <p className="text-lg">Update Email address</p>
-                        <input type="email" className="border-2 w-full p-2" value={email} onChange={(e) => setEmail(e.target.value)} required />
-                    </div>
+                            <div className="mb-3">
+                                <p className="text-lg">Update Email address</p>
+                                <input type="email" className="border-2 w-full p-2" value={email} onChange={(e) => setEmail(e.target.value)} placeholder={user?.email} required />
+                            </div>
 
-                    <div className="mb-3">
-                        <p className="text-lg">Profile Picture</p>
-                        <input type="file" className="border-2 w-full p-2" accept='.png, .jpg, .jpeg' onChange={handleImageChange} required />
-                    </div>
+                            <div className="mb-3">
+                                <p className="text-lg">Profile Picture</p>
+                                <input type="file" className="border-2 w-full p-2 bg-white" accept='.png, .jpg, .jpeg' onChange={handleImageChange} required />
+                            </div>
 
 
-                    <div className='grid mb-3'>
-                        <Button variant='contained' type="submit">Confirm Update</Button>
+                            <div className='grid mb-3'>
+                                <Button variant='contained' type="submit">Confirm Update</Button>
+                            </div>
+                        </form>
                     </div>
-                </form>
-            </div>
-        </div>
+                </div>}
+        </>
     )
 }
 

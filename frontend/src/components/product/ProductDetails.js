@@ -17,8 +17,10 @@ function ProductDetails() {
     const { id } = useParams()
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const { isLoading, productInfo, error, success } = useSelector((state) => state.product)
+    const {isAuth} = useSelector((state) => state.user)
+    const { isLoading, productInfo, reviewInfo, error } = useSelector((state) => state.product)
 
+    // Initial quantity of product
     const [quantity, setQuantity] = useState(1)
 
     const incQty = () => {
@@ -39,17 +41,15 @@ function ProductDetails() {
 
     const handleAddToCart = () => {
         dispatch(addItemsToCart({ id, quantity }))
-
-        navigate('/cart')
+        alert('Product added to cart')
     }
 
+    // Review
     const [rating, setRating] = useState(0)
     const [comment, setComment] = useState('')
 
-    const handleReviewSubmit = () => {
-        const token = JSON.parse(localStorage.getItem('token'))
-
-        if (!token) {
+    const handleReviewSubmit = async () => {
+        if (!isAuth) {
             return navigate('/login')
         }
 
@@ -59,16 +59,19 @@ function ProductDetails() {
             productId: id,
         }
 
-        dispatch(createReview(newReview))
+        await dispatch(createReview(newReview))
 
-        if (success) {
+        if (reviewInfo?.success) {
             setRating(0)
             setComment('')
-
             handleClose()
+            await dispatch(getProductDetails(id))
+        }else{
+            console.log(error)
         }
     }
 
+    // Modal Style
     const style = {
         position: 'absolute',
         top: '50%',
@@ -81,6 +84,7 @@ function ProductDetails() {
         p: 4,
     };
 
+    // Modal State
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -95,13 +99,13 @@ function ProductDetails() {
             {isLoading ? <Loader /> :
                 <Fragment>
                     <div className='grid gap-4 lg:grid-cols-2 sm:grid-cols-1'>
-                        <div className='p-2'>
+                        <div className='p-2 border-4 rounded-lg flex justify-center items-center'>
                             <img src={productInfo?.product?.image} alt='Product' />
                         </div>
                         <div className='p-2'>
                             <div className='pb-2 border-b'>
                                 <p className='text-2xl font-bold'>{productInfo?.product?.name}</p>
-                                <p className='text-sm text-gray-600'>Product ID # {productInfo?.product?._id}</p>
+                                <p className='text-sm text-gray-600'>Product ID ### {productInfo?.product?._id}</p>
                             </div>
 
                             <div className='pb-2 border-b'>

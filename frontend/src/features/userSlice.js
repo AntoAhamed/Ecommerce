@@ -226,59 +226,76 @@ export const deleteUser = createAsyncThunk(
 );
 
 let initialState = {
-    success: false,
-    userInfo: null,
     isLoading: false,
+    user: null,
     error: null,
-    message: null,
+    userInfo: null,
+    isAuth: false,
 };
 
 const userSlice = createSlice({
     name: "user",
     initialState,
-    reducers: {},
+    reducers: {
+        tmpLogout: (state) => {
+            state.user = null;
+            state.isAuth = false;
+        }
+    },
     extraReducers: (builder) => {
         builder
             // Signup
             .addCase(signup.pending, (state) => {
                 state.isLoading = true;
                 state.error = null;
+                state.isAuth = false;
             })
             .addCase(signup.fulfilled, (state, action) => {
                 state.isLoading = false;
+                state.user = action.payload.user;
                 state.userInfo = action.payload;
+                state.isAuth = true;
             })
             .addCase(signup.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload;
+                state.isAuth = false;
             })
             // Login
             .addCase(login.pending, (state) => {
                 state.isLoading = true;
                 state.error = null;
+                state.isAuth = false;
             })
             .addCase(login.fulfilled, (state, action) => {
                 state.isLoading = false;
+                state.user = action.payload.user;
                 state.userInfo = action.payload;
+                state.isAuth = true;
             })
             .addCase(login.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload;
+                state.isAuth = false;
             })
             // LoadUser
             .addCase(loadUser.pending, (state) => {
                 state.isLoading = true;
                 state.error = null;
+                state.isAuth = false;
             })
             .addCase(loadUser.fulfilled, (state, action) => {
                 state.isLoading = false;
+                state.user = action.payload.user;
                 state.userInfo = action.payload;
+                state.isAuth = true;
             })
             .addCase(loadUser.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload;
+                state.isAuth = false;
             })
-            // Logout
+            // Logout (not working right now)
             .addCase(logout.pending, (state) => {
                 state.isLoading = true;
                 state.error = null;
@@ -286,7 +303,6 @@ const userSlice = createSlice({
             .addCase(logout.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.userInfo = action.payload;
-                state.message = action.payload.message;
             })
             .addCase(logout.rejected, (state, action) => {
                 state.isLoading = false;
@@ -299,6 +315,7 @@ const userSlice = createSlice({
             })
             .addCase(updatePassword.fulfilled, (state, action) => {
                 state.isLoading = false;
+                state.user = action.payload.user;
                 state.userInfo = action.payload;
             })
             .addCase(updatePassword.rejected, (state, action) => {
@@ -312,8 +329,7 @@ const userSlice = createSlice({
             })
             .addCase(forgetPassword.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.success = true;
-                state.message = "Reset Password link sent to your email";
+                state.userInfo = action.payload;
             })
             .addCase(forgetPassword.rejected, (state, action) => {
                 state.isLoading = false;
@@ -378,7 +394,7 @@ const userSlice = createSlice({
             })
             .addCase(updateUser.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.success = action.payload.success;
+                state.userInfo = action.payload;
             })
             .addCase(updateUser.rejected, (state, action) => {
                 state.isLoading = false;
@@ -391,7 +407,7 @@ const userSlice = createSlice({
             })
             .addCase(deleteUser.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.success = action.payload.success;
+                state.userInfo = action.payload;
             })
             .addCase(deleteUser.rejected, (state, action) => {
                 state.isLoading = false;
@@ -400,4 +416,5 @@ const userSlice = createSlice({
     }
 })
 
+export const { tmpLogout } = userSlice.actions
 export default userSlice.reducer
