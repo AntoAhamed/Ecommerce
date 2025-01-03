@@ -1,11 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios'
+import backend_url from "../config/config";
 
 export const addItemsToCart = createAsyncThunk(
     "cart/addItemsToCart",
     async ({ id, quantity }, { rejectWithValue }) => {
         try {
-            const { data } = await axios.get(`http://localhost:5000/api/v1/product/${id}`);
+            const { data } = await axios.get(`${backend_url}/api/v1/product/${id}`);
 
             const cartItem = {
                 product: data.product._id,

@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios'
+import backend_url from "../config/config";
 
 export const getProducts = createAsyncThunk(
     'products/getProducts',
@@ -15,7 +16,7 @@ export const getProducts = createAsyncThunk(
                 page,
                 limit,
             }).toString();
-            const response = await axios.get(`http://localhost:5000/api/v1/products?${query}`);
+            const response = await axios.get(`${backend_url}/api/v1/products?${query}`);
             return response.data;
         } catch (err) {
             return rejectWithValue(err.response.data);
@@ -27,7 +28,7 @@ export const getProductDetails = createAsyncThunk(
     "product/getProductDetails",
     async (id, { rejectWithValue }) => {
         try {
-            const { data } = await axios.get(`http://localhost:5000/api/v1/product/${id}`);
+            const { data } = await axios.get(`${backend_url}/api/v1/product/${id}`);
             return data;
         } catch (error) {
             return rejectWithValue(error.response.data);
@@ -48,7 +49,7 @@ export const createProduct = createAsyncThunk(
                 }
             };
 
-            const { data } = await axios.post("http://localhost:5000/api/v1/admin/product/new", productData, config);
+            const { data } = await axios.post(`${backend_url}/api/v1/admin/product/new`, productData, config);
 
             return data
         } catch (error) {
@@ -70,7 +71,7 @@ export const getAdminProducts = createAsyncThunk(
                 }
             };
 
-            const { data } = await axios.get("http://localhost:5000/api/v1/admin/products", config);
+            const { data } = await axios.get(`${backend_url}/api/v1/admin/products`, config);
 
             return data
         } catch (error) {
@@ -92,7 +93,7 @@ export const updateProduct = createAsyncThunk(
                 }
             };
 
-            const { data } = await axios.put(`http://localhost:5000/api/v1/admin/product/${id}`, updatedData, config);
+            const { data } = await axios.put(`${backend_url}/api/v1/admin/product/${id}`, updatedData, config);
 
             return data
         } catch (error) {
@@ -114,7 +115,7 @@ export const deleteProduct = createAsyncThunk(
                 }
             };
 
-            const { data } = await axios.delete(`http://localhost:5000/api/v1/admin/product/${id}`, config);
+            const { data } = await axios.delete(`${backend_url}/api/v1/admin/product/${id}`, config);
 
             return data
         } catch (error) {
@@ -135,7 +136,7 @@ export const createReview = createAsyncThunk(
                 }
             };
             const { data } = await axios.put(
-                "http://localhost:5000/api/v1/review",
+                `${backend_url}/api/v1/review`,
                 newReview,
                 config
             );
@@ -150,7 +151,7 @@ export const getAllReviews = createAsyncThunk(
     "product/getAllReviews",
     async (id, { rejectWithValue }) => {
         try {
-            const { data } = await axios.get(`http://localhost:5000/api/v1/reviews?id=${id}`);
+            const { data } = await axios.get(`${backend_url}/api/v1/reviews?id=${id}`);
             return data;
         } catch (error) {
             return rejectWithValue(error.response.data);
@@ -170,7 +171,7 @@ export const deleteReview = createAsyncThunk(
                 }
             };
             const { data } = await axios.delete(
-                `http://localhost:5000/api/v1/reviews?id=${reviewId}&productId=${productId}`,
+                `${backend_url}/api/v1/reviews?id=${reviewId}&productId=${productId}`,
                 config
             );
             return data;

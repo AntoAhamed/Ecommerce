@@ -14,11 +14,17 @@ if (process.env.NODE_ENV !== "PRODUCTION") {
   require("dotenv").config({ path: "backend/config/config.env" });
 }
 
+// Middleware
+const corsOptions = {
+  origin: process.env.CLIENT_URL,
+  credentials: true,
+  optionsSuccessStatus: 200,
+};
 app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(fileUpload())
-app.use(cors())
+app.use(cors(corsOptions));
 
 // Route Imports
 const product = require("./routes/productRoutes");

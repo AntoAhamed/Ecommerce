@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios'
+import backend_url from "../config/config";
 
 export const createOrder = createAsyncThunk(
     "order/createOrder",
@@ -14,7 +15,7 @@ export const createOrder = createAsyncThunk(
                 }
             };
 
-            const { data } = await axios.post("http://localhost:5000/api/v1/order/new", orderData, config);
+            const { data } = await axios.post(`${backend_url}/api/v1/order/new`, orderData, config);
 
             return data
         } catch (error) {
@@ -36,7 +37,7 @@ export const myOrders = createAsyncThunk(
                 }
             };
 
-            const { data } = await axios.get("http://localhost:5000/api/v1/orders/me", config);
+            const { data } = await axios.get(`${backend_url}/api/v1/orders/me`, config);
 
             return data
         } catch (error) {
@@ -58,7 +59,7 @@ export const getAllOrders = createAsyncThunk(
                 }
             };
 
-            const { data } = await axios.get("http://localhost:5000/api/v1/admin/orders", config);
+            const { data } = await axios.get(`${backend_url}/api/v1/admin/orders`, config);
 
             return data
         } catch (error) {
@@ -80,7 +81,7 @@ export const updateOrder = createAsyncThunk(
                 }
             };
 
-            const { data } = await axios.put(`http://localhost:5000/api/v1/admin/order/${id}`, {status}, config);
+            const { data } = await axios.put(`${backend_url}/api/v1/admin/order/${id}`, {status}, config);
 
             return data
         } catch (error) {
@@ -102,7 +103,7 @@ export const deleteOrderByUser = createAsyncThunk(
                 }
             };
 
-            const { data } = await axios.delete(`http://localhost:5000/api/v1/order/${id}`, config);
+            const { data } = await axios.delete(`${backend_url}/api/v1/order/${id}`, config);
 
             return data
         } catch (error) {
@@ -124,7 +125,7 @@ export const deleteOrder = createAsyncThunk(
                 }
             };
 
-            const { data } = await axios.delete(`http://localhost:5000/api/v1/admin/order/${id}`, config);
+            const { data } = await axios.delete(`${backend_url}/api/v1/admin/order/${id}`, config);
 
             return data
         } catch (error) {
@@ -146,7 +147,7 @@ export const getOredrDetails = createAsyncThunk(
                 }
             };
 
-            const { data } = await axios.get(`http://localhost:5000/api/v1/order/${id}`, config);
+            const { data } = await axios.get(`${backend_url}/api/v1/order/${id}`, config);
 
             return data
         } catch (error) {

@@ -26,7 +26,7 @@ export default function Home() {
         <>
             {isLoading ? <Loader /> :
                 <div>
-                    <div className='bg-orange-600 h-lvh text-white flex flex-col justify-center items-center rounded-br-full rounded-tr-full mr-16'>
+                    <div className='bg-orange-600 h-lvh text-white flex flex-col justify-center items-center rounded-br-full rounded-tr-full mr-16 shadow-xl'>
                         <h1 className='lg:text-6xl md:text-5xl sm:text-4xl font-bold mb-6 hover:text-8xl transition-all hover:transition-all'>Welcome To Ecommerce</h1>
                         <p className='text-xl hover:text-lg transition-all hover:transition-all'>You can get whatever you want</p>
                     </div>

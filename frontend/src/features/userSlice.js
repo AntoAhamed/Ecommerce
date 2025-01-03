@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios'
+import backend_url from "../config/config";
 
 export const signup = createAsyncThunk(
     "user/signup",
@@ -7,7 +8,7 @@ export const signup = createAsyncThunk(
         try {
             const config = { headers: { "Content-Type": "application/json" } };
             const { data } = await axios.post(
-                "http://localhost:5000/api/v1/register",
+                `${backend_url}/api/v1/register`,
                 userData,
                 config
             );
@@ -25,7 +26,7 @@ export const login = createAsyncThunk(
         try {
             const config = { headers: { "Content-Type": "application/json" } };
             const { data } = await axios.post(
-                "http://localhost:5000/api/v1/login",
+                `${backend_url}/api/v1/login`,
                 userData,
                 config
             );
@@ -46,7 +47,7 @@ export const loadUser = createAsyncThunk(
                 headers: { Authorization: `Bearer ${token}` }
             };
             const { data } = await axios.get(
-                "http://localhost:5000/api/v1/me",
+                `${backend_url}/api/v1/me`,
                 config
             );
             return data;
@@ -74,11 +75,11 @@ export const logout = createAsyncThunk(
 
 export const forgetPassword = createAsyncThunk(
     "user/forgetPassword",
-    async ({email}, { rejectWithValue }) => {
+    async ({ email }, { rejectWithValue }) => {
         try {
             const config = { headers: { "Content-Type": "application/json" } }
 
-            const { data } = await axios.post('http://localhost:5000/api/v1/password/forgot', email, config)
+            const { data } = await axios.post(`${backend_url}/api/v1/password/forgot`, email, config)
 
             return data
         } catch (error) {
@@ -89,11 +90,11 @@ export const forgetPassword = createAsyncThunk(
 
 export const resetPassword = createAsyncThunk(
     "user/resetPassword",
-    async ({token, passwords}, { rejectWithValue }) => {
+    async ({ token, passwords }, { rejectWithValue }) => {
         try {
             const config = { headers: { "Content-Type": "application/json" } }
 
-            const { data } = await axios.put(`http://localhost:5000/api/v1/password/reset/${token}`, passwords, config)
+            const { data } = await axios.put(`${backend_url}/api/v1/password/reset/${token}`, passwords, config)
 
             localStorage.setItem("token", JSON.stringify(data.token))
 
@@ -116,7 +117,7 @@ export const updatePassword = createAsyncThunk(
                 }
             };
             const { data } = await axios.put(
-                "http://localhost:5000/api/v1/password/update",
+                `${backend_url}/api/v1/password/update`,
                 passwords, config
             );
             localStorage.setItem("token", JSON.stringify(data.token));
@@ -139,7 +140,7 @@ export const updateProfile = createAsyncThunk(
                 }
             };
             const { data } = await axios.put(
-                "http://localhost:5000/api/v1/me/update",
+                `${backend_url}/api/v1/me/update`,
                 userData, config
             );
             return data;
@@ -160,7 +161,7 @@ export const getAllUsers = createAsyncThunk(
                     Authorization: `Bearer ${token}`
                 }
             };
-            const { data } = await axios.get("http://localhost:5000/api/v1/admin/users", config);
+            const { data } = await axios.get(`${backend_url}/api/v1/admin/users`, config);
             return data
         } catch (error) {
             return rejectWithValue(error.response.data);
@@ -179,7 +180,7 @@ export const getUserDetails = createAsyncThunk(
                     Authorization: `Bearer ${token}`
                 }
             };
-            const { data } = await axios.get(`http://localhost:5000/api/v1/admin/user/${id}`, config);
+            const { data } = await axios.get(`${backend_url}/api/v1/admin/user/${id}`, config);
             return data
         } catch (error) {
             return rejectWithValue(error.response.data);
@@ -198,7 +199,7 @@ export const updateUser = createAsyncThunk(
                     Authorization: `Bearer ${token}`
                 }
             };
-            const { data } = await axios.put(`http://localhost:5000/api/v1/admin/user/${id}`, userData, config);
+            const { data } = await axios.put(`${backend_url}/api/v1/admin/user/${id}`, userData, config);
             return data
         } catch (error) {
             return rejectWithValue(error.response.data);
@@ -217,7 +218,7 @@ export const deleteUser = createAsyncThunk(
                     Authorization: `Bearer ${token}`
                 }
             };
-            const { data } = await axios.delete(`http://localhost:5000/api/v1/admin/user/${id}`, config);
+            const { data } = await axios.delete(`${backend_url}/api/v1/admin/user/${id}`, config);
             return data
         } catch (error) {
             return rejectWithValue(error.response.data);
