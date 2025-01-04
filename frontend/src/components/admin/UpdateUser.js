@@ -6,46 +6,35 @@ import { Button } from '@mui/material'
 import { getUserDetails, updateUser } from '../../features/userSlice'
 
 function UpdateUser() {
-  const {id} = useParams()
+  const { id } = useParams()
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const roles = ['user', 'admin']
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
   const [role, setRole] = useState(roles[0])
-  const {isLoading, userInfo, error} = useSelector((state)=>state.user)
+  const { isLoading, userInfo, error } = useSelector((state) => state.user)
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    
+
     const userData = {
-      name,
-      email,
+      name: userInfo?.user?.name,
+      email: userInfo?.user?.email,
       role,
     }
 
-    dispatch(updateUser({id, userData}))
+    dispatch(updateUser({ id, userData }))
 
-    if(userInfo?.success){
+    if (userInfo?.success) {
       alert("User updated successfully")
       navigate('/admin-users')
-    }else{
+    } else {
       console.log(error)
     }
   }
 
-  const fetchData = () => {
+  useEffect(() => {
     dispatch(getUserDetails(id))
-
-    if(userInfo){
-      setName(userInfo?.user?.name)
-      setEmail(userInfo?.user?.email)
-    }
-  }
-
-  useEffect(()=>{
-    fetchData()
-  },[dispatch])
+  }, [dispatch])
 
   return (
     <div className='grid grid-cols-5'>
@@ -55,18 +44,18 @@ function UpdateUser() {
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
             <p className="text-lg">Name</p>
-            <input type="text" className="border-2 w-full p-2" disabled value={name} onChange={(e) => setName(e.target.value)} required />
+            <input type="text" className="border-2 w-full p-2" disabled placeholder={userInfo?.user?.name} required />
           </div>
 
           <div className="mb-3">
             <p className="text-lg">Email</p>
-            <input type="email" className="border-2 w-full p-2" disabled value={email} onChange={(e) => setEmail(e.target.value)} required />
+            <input type="email" className="border-2 w-full p-2" disabled placeholder={userInfo?.user?.email} required />
           </div>
 
           <div className="mb-3">
             <p className="text-lg">Role (Current: <span className='font-semibold'>{userInfo?.user?.role}</span>)</p>
             <select className="border-2 w-full p-2" value={role} onChange={(e) => setRole(e.target.value)} required>
-              {roles.map((option, index)=>(
+              {roles.map((option, index) => (
                 <option key={index} value={option}>{option}</option>
               ))}
             </select>

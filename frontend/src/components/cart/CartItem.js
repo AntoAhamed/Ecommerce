@@ -12,7 +12,7 @@ function CartItem(props) {
             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
         >
             <TableCell component="th" scope="row" sx={{ display: 'flex' }}>
-                <img src={item.image} alt='' width={'10%'} />
+                <img src={item.images[0].url} alt='' width={'10%'} />
                 <div className='flex flex-col ml-4'>
                     <span className='text-lg'>{item.name}</span>
                     <span className='text-lg'>${item.price}</span>

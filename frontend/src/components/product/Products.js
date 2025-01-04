@@ -119,12 +119,12 @@ function Products() {
             </div>
             <div className="flex justify-center py-8">
               <Stack spacing={2}>
-                <Pagination
+                {productInfo?.totalPages ? <Pagination
                   count={productInfo?.totalPages || ''}
                   color="primary"
                   page={filters.page}
                   onChange={handlePaginationChange}
-                />
+                /> : <p>No more products</p>}
               </Stack>
             </div>
           </div>

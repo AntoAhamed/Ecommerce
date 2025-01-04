@@ -54,7 +54,7 @@ function ConfirmOrder() {
                         <p className='text-2xl font-semibold mb-3'>Your Cart Items</p>
                         {cartItems && cartItems.map((item, index) => (
                             <div key={index} className='flex justify-between my-5'>
-                                <img src={item.image} alt='' width={'7%'} />
+                                <img src={item.images[0].url} alt='' width={'7%'} />
                                 <Link to={`/product-details/${item.product}`}>
                                     {item.name}
                                 </Link>

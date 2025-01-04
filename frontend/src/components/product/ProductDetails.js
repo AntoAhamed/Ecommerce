@@ -100,7 +100,7 @@ function ProductDetails() {
                 <Fragment>
                     <div className='grid gap-4 lg:grid-cols-2 sm:grid-cols-1'>
                         <div className='p-2 border-4 rounded-lg flex justify-center items-center'>
-                            <img src={productInfo?.product?.image} alt='Product' />
+                            <img src={productInfo?.product?.images[0].url} alt='Product' />
                         </div>
                         <div className='p-2'>
                             <div className='pb-2 border-b'>

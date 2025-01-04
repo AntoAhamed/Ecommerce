@@ -32,6 +32,8 @@ function Signup() {
         if (userInfo?.success) {
             navigate('/profile')
         }else{
+            setAvatar(userPic)
+            setAvatarPreview(userPic)
             console.log(error)
         }
     }
