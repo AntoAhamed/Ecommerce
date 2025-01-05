@@ -13,7 +13,7 @@ function ForgotPassword() {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        dispatch(forgetPassword({email}))
+        dispatch(forgetPassword(email))
 
         if (userInfo?.success) {
             alert("Password reset link sent to your email")
@@ -23,9 +23,9 @@ function ForgotPassword() {
     }
 
     return (
-        <div className='border-2 bg-gray-100' style={{ padding: '5% 15%', margin: '7% 25%' }}>
-            <div className='flex flex-col'>
-                <p className='text-3xl font-semibold text-center mb-3'>Forgot Password</p>
+        <div className='h-screen'>
+            <div className='flex flex-col border-2 bg-gray-100 lg:mx-72 md:mx-52 lg:my-12 md:my-10 m-8 lg:px-32 md:px-16 lg:py-6 md:py-4 px-2 py-8'>
+                <p className='lg:text-4xl text-2xl font-semibold mb-3 text-center'>Forgot Password</p>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-3">
                         <p className="text-lg">Email address</p>

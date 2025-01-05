@@ -17,7 +17,7 @@ function ProductDetails() {
     const { id } = useParams()
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const {isAuth} = useSelector((state) => state.user)
+    const { isAuth } = useSelector((state) => state.user)
     const { isLoading, productInfo, reviewInfo, error } = useSelector((state) => state.product)
 
     // Initial quantity of product
@@ -66,7 +66,7 @@ function ProductDetails() {
             setComment('')
             handleClose()
             await dispatch(getProductDetails(id))
-        }else{
+        } else {
             console.log(error)
         }
     }
@@ -95,39 +95,41 @@ function ProductDetails() {
 
     return (
         <div className='flex flex-col items-center'>
-            <span className='text-3xl p-4 my-4 border-b-2'>Product Details</span>
+            <span className='text-3xl p-4 mb-3 border-b-2'>Product Details</span>
             {isLoading ? <Loader /> :
                 <Fragment>
-                    <div className='grid gap-4 lg:grid-cols-2 sm:grid-cols-1'>
-                        <div className='p-2 border-4 rounded-lg flex justify-center items-center'>
+                    <div className='grid lg:grid-cols-2 sm:grid-cols-1 mb-4'>
+                        <div className='border-4 rounded-lg flex justify-center items-center mx-16'>
                             <img src={productInfo?.product?.images[0].url} alt='Product' />
                         </div>
-                        <div className='p-2'>
-                            <div className='pb-2 border-b'>
+                        <div className=''>
+                            <div className='border-b py-2'>
                                 <p className='text-2xl font-bold'>{productInfo?.product?.name}</p>
                                 <p className='text-sm text-gray-600'>Product ID ### {productInfo?.product?._id}</p>
                             </div>
 
-                            <div className='pb-2 border-b'>
+                            <div className='border-b pb-2'>
                                 <RatingStars ratings={Number(productInfo?.product?.ratings)} />
                                 ({productInfo?.product?.numOfReviews} Reviews)
                             </div>
 
-                            <div className='pt-2 pb-4 border-b'>
+                            <div className='border-b py-2'>
                                 <p className='text-xl font-semibold mb-2'>${productInfo?.product?.price}</p>
-                                <div className='flex'>
-                                    <div className='flex mr-4'>
+                                <div className='grid gap-4 lg:grid-cols-2 md:grid-cols-2 grid-cols-1 mb-2'>
+                                    <div className='grid grid-cols-3'>
                                         <Button variant='contained' onClick={decQty}>-</Button>
-                                        <input type='number' className='border pl-1' min={'0'} readOnly value={quantity} />
+                                        <input type='number' className='border outline-none rounded-lg' min={'0'} readOnly value={quantity} />
                                         <Button variant='contained' disabled={productInfo?.product?.stock <= 0} onClick={incQty}>+</Button>
                                     </div>
-                                    <Button variant='contained' disabled={productInfo?.product?.stock <= 0} onClick={handleAddToCart}>Add to Cart</Button>
+                                    <div>
+                                        <Button variant='contained' disabled={productInfo?.product?.stock <= 0} onClick={handleAddToCart}>Add to Cart</Button>
+                                    </div>
                                 </div>
                             </div>
 
-                            <p className='text-lg pt-2 pb-2 border-b'>Status: {productInfo?.product?.stock > 0 ? <span className='text-green-800 font-bold'>In Stock</span> : <span className='text-red-800 font-bold'>Out of Stock</span>}</p>
+                            <p className='text-lg py-2 border-b'>Status: {productInfo?.product?.stock > 0 ? <span className='text-green-800 font-bold'>In Stock</span> : <span className='text-red-800 font-bold'>Out of Stock</span>}</p>
 
-                            <div className='pt-2 pb-2'>
+                            <div className='py-2'>
                                 <p className='text-lg mb-2'>Product Description</p>
                                 <p className='text-md mb-2'>{productInfo?.product?.description}</p>
                                 <Button variant='contained' onClick={handleOpen}>Submit Review</Button>
@@ -160,8 +162,8 @@ function ProductDetails() {
                             </div>
                         </Box>
                     </Modal>
-                    <span className='text-2xl p-4 my-4 border-b-2'>Reviews</span>
-                    <div class="grid gap-4 lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1">
+                    <span className='text-2xl my-4 border-b-2'>Reviews</span>
+                    <div class="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1">
                         {productInfo?.product?.reviews?.length ?
                             productInfo?.product?.reviews?.map((review, index) => (<ReviewCard key={index} review={review} />)) :
                             <Typography className=''>No Reviews To Show</Typography>

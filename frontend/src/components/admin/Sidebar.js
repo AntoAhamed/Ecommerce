@@ -7,7 +7,7 @@ function Sidebar(props) {
     return (
         <div className='p-3 border-r lg:border-b-0 border-b shadow-lg'>
             <p className='text-2xl font-semibold mb-6'>Admin Panel</p>
-            <ul class="flex lg:flex-col justify-around pl-10">
+            <ul className="flex flex-col justify-around pl-10">
                 <li className='mb-6'>
                     <Link className={`text-lg p-2 ${active === "dashboard" ? "border-blue-800 font-semibold border-b-2" : "hover:text-blue-500"}`} to="/admin-dashboard">Dashboard</Link>
                 </li>

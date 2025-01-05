@@ -74,8 +74,8 @@ function CreateProduct() {
         <div className='grid lg:grid-cols-5'>
             <Sidebar active={"create-products"} />
             <div className='lg:col-span-4'>
-                <div className='flex flex-col items-center border my-6 mx-44 py-10 bg-gray-100'>
-                    <p className='text-3xl font-semibold'>Create Product</p>
+                <div className='lg:col-span-4 border-2 bg-gray-50 lg:mx-32 md:mx-16 lg:my-16 md:my-8 m-4 lg:px-32 md:px-16 px-4 lg:py-16 md:py-8 py-4'>
+                    <p className='lg:text-4xl text-2xl font-semibold mb-3 text-center'>Create Product</p>
                     <form encType='multipart/form-data' onSubmit={handleSubmit}>
                         <div className="mb-3">
                             <p className="text-lg">Name</p>

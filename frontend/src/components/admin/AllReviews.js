@@ -48,7 +48,7 @@ function AllReviews() {
     }, [dispatch])
 
     return (
-        <div className={`grid lg:grid-cols-5 ${reviews.length <= 3 && 'h-screen'}`}>
+        <div className={`grid lg:grid-cols-5 ${reviews.length <= 3 ? 'h-screen' : 'h-full'}`}>
             <Sidebar active={"reviews"} />
             <div className='lg:col-span-4 p-4 text-center'>
                 <div className='flex flex-col items-center mb-3 border-8 py-6'>

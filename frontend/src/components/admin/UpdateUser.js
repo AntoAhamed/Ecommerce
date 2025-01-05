@@ -37,9 +37,9 @@ function UpdateUser() {
   }, [dispatch])
 
   return (
-    <div className='grid grid-cols-5'>
+    <div className='grid lg:grid-cols-5'>
       <Sidebar />
-      <div className='col-span-4 p-4' style={{ padding: '10% 30%' }}>
+      <div className='lg:col-span-4 border-2 bg-gray-50 lg:mx-32 md:mx-16 lg:my-16 md:my-8 m-4 lg:px-32 md:px-16 px-4 lg:py-16 md:py-8 py-4'>
         <p className='text-4xl font-semibold mb-3 text-center'>Update User Role</p>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">

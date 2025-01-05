@@ -55,7 +55,7 @@ function Products() {
         <Loader />
       ) : (
         <div className="grid lg:grid-cols-4 sm:grid-cols-1 gap-4">
-          <div className="border-r p-4">
+          <div className="lg:border-r border-b p-4">
             <div className="flex justify-between mb-5">
               <TextField
                 id="outlined-basic"
@@ -85,9 +85,9 @@ function Products() {
             <div>
               <p className='font-semibold'>Categories</p>
               <div className="text-gray-500">
-                {['Camera', 'Laptop', 'T-shirt', 'Mystery Box'].map((cat) => (
+                {['Camera', 'Laptop', 'T-shirt', 'Mystery Box'].map((cat, index) => (
                   <p
-                    key={cat}
+                    key={index}
                     className="hover:cursor-pointer"
                     onClick={() => handleCategoryChange(cat)}
                   >

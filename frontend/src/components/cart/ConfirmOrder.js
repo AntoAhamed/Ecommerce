@@ -46,15 +46,15 @@ function ConfirmOrder() {
         <>
             {isLoading ? <Loader /> :
                 <div className='grid lg:grid-cols-2 md:grid-cols-1 p-4'>
-                    <div className='p-4 border-r'>
+                    <div className='p-4 lg:border-r border-b'>
                         <p className='text-2xl font-semibold mb-3'>Shipping Info</p>
                         <p>Name: {user?.name}</p>
                         <p>Mobile: {shippingInfo.number}</p>
                         <p className='mb-9'>Address: {address}</p>
                         <p className='text-2xl font-semibold mb-3'>Your Cart Items</p>
                         {cartItems && cartItems.map((item, index) => (
-                            <div key={index} className='flex justify-between my-5'>
-                                <img src={item.images[0].url} alt='' width={'7%'} />
+                            <div key={index} className='flex lg:flex-row md:flex-row flex-col justify-between my-5'>
+                                <img src={item.images[0].url} alt='' width={'10%'} />
                                 <Link to={`/product-details/${item.product}`}>
                                     {item.name}
                                 </Link>
@@ -62,7 +62,7 @@ function ConfirmOrder() {
                             </div>
                         ))}
                     </div>
-                    <div className='p-36'>
+                    <div className='lg:p-36 md:p-16 p-4'>
                         <p className='text-2xl font-semibold border-b p-2'>Order Summery</p>
                         <div className='flex justify-between p-2'>
                             <span>Subtotal:</span>

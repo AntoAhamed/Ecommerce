@@ -51,14 +51,14 @@ function UpdateOrder() {
                 <p className='text-2xl mb-2'>Your Order Items</p>
                 {orderInfo?.order?.orderItems.map((element, index) => (
                     <div key={index} className='flex justify-between items-center mb-3'>
-                        <img src={element.image} alt='' width={'7%'} />
+                        <img src={element.images[0].url} alt='' width={'7%'} />
                         <span className='text-lg'>{element.name}</span>
                         <span className='text-lg'>{`${element.quantity} X $${element.price} = $${element.quantity * element.price}`}</span>
                     </div>
                 ))}
                 <hr />
                 <div className='flex justify-between py-5'>
-                    <p className='text-xl'>Total Amount (With other charges)</p>
+                    <p className='lg:text-xl text-lg'>Total Amount (With other charges)</p>
                     <p className='text-xl font-bold'>${orderInfo?.order?.totalPrice.toFixed(2)}</p>
                 </div>
             </div>

@@ -34,7 +34,7 @@ function Dashboard() {
   }, [dispatch])
 
   return (
-    <div className='grid lg:grid-cols-5'>
+    <div className='grid lg:grid-cols-5 h-full'>
       <Sidebar active={"dashboard"} />
       <div className='lg:col-span-4 p-4 text-center'>
         <p className='text-3xl font-semibold'>Dashboard</p>
@@ -42,16 +42,16 @@ function Dashboard() {
           <p>Total Amount</p>
           <p>${orderInfo?.totalAmount?.toFixed(2)}</p>
         </div>
-        <div className='flex justify-around py-10'>
-          <div className='border-0 rounded-full p-10 m-2 text-lg bg-green-400'>
+        <div className='flex justify-around lg:py-10 py-7'>
+          <div className='border-0 rounded-full lg:p-10 p-5 lg:m-2 m-1 text-lg bg-green-400'>
             <p>Product</p>
             <p>{productInfo && productInfo?.products?.length}</p>
           </div>
-          <div className='border-0 rounded-full p-10 m-2 text-lg bg-yellow-400'>
+          <div className='border-0 rounded-full lg:p-10 p-5 lg:m-2 m-1 text-lg bg-yellow-400'>
             <p>Orders</p>
             <p>{orderInfo && orderInfo?.orders?.length}</p>
           </div>
-          <div className='border-0 rounded-full p-10 m-2 text-lg bg-orange-400'>
+          <div className='border-0 rounded-full lg:p-10 p-5 lg:m-2 m-1 text-lg bg-orange-400'>
             <p>Users</p>
             <p>{userInfo && userInfo?.users?.length}</p>
           </div>

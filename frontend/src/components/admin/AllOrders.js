@@ -37,7 +37,7 @@ function AllOrders() {
     }, [dispatch])
 
     return (
-        <div className={`grid lg:grid-cols-5 ${orders.length <= 3 && 'h-screen'}`}>
+        <div className={`grid lg:grid-cols-5 ${orders.length <= 3 ? 'h-screen' : 'h-full'}`}>
             <Sidebar active={"orders"} />
             <div className='lg:col-span-4 p-4 text-center'>
                 <p className='text-3xl font-semibold mb-3'>All Orders</p>

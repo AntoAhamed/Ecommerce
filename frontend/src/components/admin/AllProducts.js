@@ -33,7 +33,7 @@ function AllProducts() {
     }, [dispatch])
 
     return (
-        <div className={`grid lg:grid-cols-5 ${products.length <= 7 && 'h-screen'}`}>
+        <div className={`grid lg:grid-cols-5 ${products.length <= 7 ? 'h-screen' : 'h-full'}`}>
             <Sidebar active={"products"} />
             {isLoading ? <Loader /> :
                 <div className='lg:col-span-4 p-4 text-center'>

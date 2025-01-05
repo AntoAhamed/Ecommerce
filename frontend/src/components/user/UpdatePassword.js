@@ -42,9 +42,9 @@ function UpdatePassword() {
     return (
         <>
             {isLoading ? <Loader /> :
-                <div className='border-2 bg-gray-100' style={{ padding: '5% 15%', margin: '5% 25%' }}>
-                    <div className='flex flex-col'>
-                        <p className='text-4xl font-semibold mb-3'>Update Password</p>
+                <div className='h-screen'>
+                    <div className='flex flex-col border-2 bg-gray-100 lg:mx-72 md:mx-52 lg:my-12 md:my-10 m-8 lg:px-32 md:px-16 lg:py-6 md:py-4 px-2 py-4'>
+                        <p className='lg:text-4xl text-2xl font-semibold mb-3 text-center'>Update Password</p>
                         <form onSubmit={handleSubmit}>
                             <div className="mb-3">
                                 <p className="text-lg">Old Password</p>

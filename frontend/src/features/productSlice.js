@@ -16,8 +16,8 @@ export const getProducts = createAsyncThunk(
                 page,
                 limit,
             }).toString();
-            const response = await axios.get(`${backend_url}/api/v1/products?${query}`);
-            return response.data;
+            const {data} = await axios.get(`${backend_url}/api/v1/products?${query}`);
+            return data;
         } catch (err) {
             return rejectWithValue(err.response.data);
         }

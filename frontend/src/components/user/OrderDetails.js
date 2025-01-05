@@ -34,24 +34,28 @@ function OrderDetails() {
 
     return (
         <div className='grid lg:grid-cols-5 md:grid-cols-1'>
-            <div className='lg:col-span-4 px-24 py-12 border-r'>
+            <div className='lg:col-span-4 lg:px-24 md:px-16 px-8 lg:py-12 md:py-8 py-4 border-r'>
                 <p className='text-2xl'>Shipping Info</p>
                 <p className='text-lg'>Name: {orderInfo?.order?.user?.name} </p>
                 <p className='text-lg'>Phone: {orderInfo?.order?.shippingInfo?.number}</p>
                 <p className='text-lg mb-8'>Address: {orderInfo?.order?.shippingInfo?.address + ', ' + orderInfo?.order?.shippingInfo?.city + '-' + orderInfo?.order?.shippingInfo?.pinCode + ', ' + orderInfo?.order?.shippingInfo?.country}</p>
                 <p className='text-2xl'>Order Status</p>
-                <p className='text-lg mb-8'>{orderInfo?.order?.orderStatus}</p>
+                <p className={`text-lg mb-8
+                    ${orderInfo?.order?.orderStatus === 'Processing' ? 'text-blue-500' :
+                        orderInfo?.order?.orderStatus === 'Shipped' ? 'text-yellow-500' :
+                            'text-green-500'}
+                    `}>{orderInfo?.order?.orderStatus}</p>
                 <p className='text-2xl mb-2'>Your Order Items</p>
                 {orderInfo?.order?.orderItems.map((element, index) => (
                     <div key={index} className='flex justify-between items-center mb-3'>
-                        <img src={element.image} alt='' width={'7%'} />
+                        <img src={element.images[0].url} alt='' width={'7%'} />
                         <span className='text-lg'>{element.name}</span>
                         <span className='text-lg'>{`${element.quantity} X $${element.price} = $${element.quantity * element.price}`}</span>
                     </div>
                 ))}
                 <hr />
                 <div className='flex justify-between'>
-                    <p className='text-xl mb-2'>Total Amount (With other charges)</p>
+                    <p className='lg:text-xl text-lg mb-2'>Total Amount (With other charges)</p>
                     <p className='text-xl font-bold mb-2'>${orderInfo?.order?.totalPrice?.toFixed(2)}</p>
                 </div>
             </div>

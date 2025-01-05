@@ -57,9 +57,9 @@ function Signup() {
     return (
         <>
             {isLoading ? <Loader /> :
-                <div className='border-2 bg-gray-100' style={{ padding: '5% 15%', margin: '5% 25%' }}>
+                <div className='border-2 bg-gray-100 lg:mx-72 md:mx-52 lg:my-12 md:my-10 mx-2 my-3 lg:px-32 md:px-16 lg:py-6 md:py-4 px-2 py-3'>
                     <div className='flex flex-col items-center'>
-                        <p className='text-4xl font-semibold mb-3'>Signup</p>
+                        <p className='lg:text-4xl text-2xl font-semibold mb-3 text-center'>Signup</p>
                         <form encType='multipart/form-data' onSubmit={handleSubmit}>
                             <div className="mb-3">
                                 <p className="text-lg">Name</p>
@@ -78,9 +78,9 @@ function Signup() {
 
                             <div className="mb-3 flex flex-col items-center">
                                 <img src={avatarPreview} alt='' width={'12%'} />
-                                <div>
+                                <div className='w-full'>
                                     <p className="text-lg">Profile Picture</p>
-                                    <input type="file" accept='.png, .jpg, .jpeg' className='border-2 p-2 bg-white' name='avatar' onChange={handleImageChange} required />
+                                    <input type="file" accept='.png, .jpg, .jpeg' className='border-2 p-2 bg-white w-full' name='avatar' onChange={handleImageChange} required />
                                 </div>
                             </div>
 

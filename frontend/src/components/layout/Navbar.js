@@ -48,11 +48,11 @@ function Navbar() {
         setAnchorElUser(null);
     };
 
-    React.useEffect(() => {
+    /*React.useEffect(() => {
         if (isAuth) {
             isAuth ? settings.push({ name: 'Logout', path: '/logout' }) : settings.push({ name: 'Login', path: '/login' });
         }
-    }, [isAuth]);
+    }, [isAuth]);*/
     return (
         <>
             <AppBar position="static">
