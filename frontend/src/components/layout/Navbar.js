@@ -73,7 +73,7 @@ function Navbar() {
                         >
                             <div className='flex items-center'>
                                 <img src={icon} alt='Icon' width={'20%'} className='mr-3' />
-                                <p>Ecommerce</p>
+                                <p>Smart Ecommerce</p>
                             </div>
                         </Typography>
 
@@ -131,7 +131,7 @@ function Navbar() {
                         >
                             <div className='flex items-center'>
                                 <img src={icon} alt='Icon' width={'20%'} className='mr-3' />
-                                <p>Ecommerce</p>
+                                <p>Smart Ecommerce</p>
                             </div>
                         </Typography>
                         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
