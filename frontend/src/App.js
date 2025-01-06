@@ -31,6 +31,8 @@ import OrderDetails from './components/user/OrderDetails';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadUser } from './features/userSlice';
+import About from './components/layout/About';
+import Contact from './components/layout/Contact';
 
 function App() {
   const dispatch = useDispatch();
@@ -45,6 +47,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Navbar />}>
             <Route index element={<Home />} />
+            <Route path="about" element={<About />} />
+            <Route path="contact" element={<Contact />} />
             <Route path="products" element={<Products />} />
             <Route path="product-details/:id" element={<ProductDetails />} />
             <Route path="login" element={isAuth ? <Profile /> : <Login />} />

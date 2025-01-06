@@ -19,7 +19,7 @@ const pages = [
     { name: 'Home', path: '/' },
     { name: 'Products', path: '/products' },
     { name: 'About', path: '/about' },
-    { name: 'Contact', path: '/contact' },
+    { name: 'Contact', path: '/about' },
 ];
 
 const settings = [
@@ -116,7 +116,7 @@ function Navbar() {
                         </Box>
                         <Typography sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
                         <Typography
-                            variant="h5"
+                            variant="h4"
                             noWrap
                             component="a"
                             sx={{
