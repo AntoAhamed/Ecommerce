@@ -2,10 +2,10 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 function Sidebar(props) {
-    const { active } = props
+    const { active = '' } = props
 
     return (
-        <div className='p-3 border-r lg:border-b-0 border-b shadow-lg'>
+        <div className='p-3 border-r lg:border-b-0 border-b shadow-lg w-full'>
             <p className='text-2xl font-semibold mb-6'>Admin Panel</p>
             <ul className="flex flex-col justify-around pl-10">
                 <li className='mb-6'>
@@ -29,10 +29,6 @@ function Sidebar(props) {
             </ul>
         </div>
     )
-}
-
-Sidebar.defaultProps = {
-    active: ''
 }
 
 export default Sidebar

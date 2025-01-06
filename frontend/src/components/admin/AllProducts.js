@@ -33,12 +33,12 @@ function AllProducts() {
     }, [dispatch])
 
     return (
-        <div className={`grid lg:grid-cols-5 ${products.length <= 7 ? 'h-screen' : 'h-full'}`}>
+        <div className='grid lg:grid-cols-5'>
             <Sidebar active={"products"} />
             {isLoading ? <Loader /> :
                 <div className='lg:col-span-4 p-4 text-center'>
                     <p className='text-3xl font-semibold mb-3'>All Products</p>
-                    <TableContainer component={Paper} className='p-5'>
+                    <TableContainer component={Paper} className={`p-5 ${products.length <= 3 ? 'h-screen' : 'h-full'}`}>
                         <Table sx={{ minWidth: 650, border: '1px solid lightgray' }} aria-label="simple table">
                             <TableHead>
                                 <TableRow sx={{ backgroundColor: 'gray' }}>

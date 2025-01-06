@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { forgetPassword } from '../../features/userSlice'
 import { Button } from '@mui/material'
-import { use } from 'react'
 
 function ForgotPassword() {
     const dispatch = useDispatch()

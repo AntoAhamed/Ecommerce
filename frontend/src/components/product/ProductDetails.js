@@ -94,12 +94,12 @@ function ProductDetails() {
     }, [dispatch])
 
     return (
-        <div className='flex flex-col items-center'>
-            <span className='text-3xl p-4 mb-3 border-b-2'>Product Details</span>
+        <div className='flex flex-col items-center p-4'>
+            <span className='text-3xl px-4 py-2 mb-3 border-b-2'>Product Details</span>
             {isLoading ? <Loader /> :
                 <Fragment>
                     <div className='grid lg:grid-cols-2 sm:grid-cols-1 mb-4'>
-                        <div className='border-4 rounded-lg flex justify-center items-center mx-16'>
+                        <div className='border-4 rounded-lg flex justify-center items-center lg:mx-16'>
                             <img src={productInfo?.product?.images[0].url} alt='Product' />
                         </div>
                         <div className=''>
@@ -162,8 +162,8 @@ function ProductDetails() {
                             </div>
                         </Box>
                     </Modal>
-                    <span className='text-2xl my-4 border-b-2'>Reviews</span>
-                    <div class="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1">
+                    <span className='text-2xl my-4 border-b-2 px-4 py-2'>Reviews</span>
+                    <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1">
                         {productInfo?.product?.reviews?.length ?
                             productInfo?.product?.reviews?.map((review, index) => (<ReviewCard key={index} review={review} />)) :
                             <Typography className=''>No Reviews To Show</Typography>

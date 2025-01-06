@@ -19,7 +19,11 @@ function AllReviews() {
     const [productId, setPrductId] = useState('')
 
     const handleProductIdSubmit = () => {
-        dispatch(getAllReviews(productId))
+        if(productId.length === 24){
+            dispatch(getAllReviews(productId))
+        }else{
+            alert("Please enter a valid product Id.")
+        }
     }
 
     const reviews = []
@@ -48,7 +52,7 @@ function AllReviews() {
     }, [dispatch])
 
     return (
-        <div className={`grid lg:grid-cols-5 ${reviews.length <= 3 ? 'h-screen' : 'h-full'}`}>
+        <div className='grid lg:grid-cols-5'>
             <Sidebar active={"reviews"} />
             <div className='lg:col-span-4 p-4 text-center'>
                 <div className='flex flex-col items-center mb-3 border-8 py-6'>
@@ -56,7 +60,7 @@ function AllReviews() {
                     <Button variant='contained' onClick={handleProductIdSubmit}>Search for Review</Button>
                 </div>
                 <p className='text-3xl font-semibold mb-3'>All Review</p>
-                <TableContainer component={Paper} className='p-5'>
+                <TableContainer component={Paper} className={`p-5 ${reviews.length <= 3 ? 'h-screen' : 'h-full'}`}>
                     <Table sx={{ minWidth: 650, border: '1px solid lightgray' }} aria-label="simple table">
                         <TableHead>
                             <TableRow sx={{ backgroundColor: 'gray' }}>

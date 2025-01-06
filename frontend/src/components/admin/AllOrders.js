@@ -37,11 +37,11 @@ function AllOrders() {
     }, [dispatch])
 
     return (
-        <div className={`grid lg:grid-cols-5 ${orders.length <= 3 ? 'h-screen' : 'h-full'}`}>
+        <div className='grid lg:grid-cols-5'>
             <Sidebar active={"orders"} />
             <div className='lg:col-span-4 p-4 text-center'>
                 <p className='text-3xl font-semibold mb-3'>All Orders</p>
-                <TableContainer component={Paper} className='p-5'>
+                <TableContainer component={Paper} className={`p-5 ${orders.length <= 3 ? 'h-screen' : 'h-full'}`}>
                     <Table sx={{ minWidth: 650, border: '1px solid lightgray' }} aria-label="simple table">
                         <TableHead>
                             <TableRow sx={{ backgroundColor: 'gray' }}>
