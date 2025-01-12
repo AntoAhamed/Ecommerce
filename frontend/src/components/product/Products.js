@@ -85,7 +85,7 @@ function Products() {
             <div>
               <p className='font-semibold'>Categories</p>
               <div className="text-gray-500">
-                {['Camera', 'Laptop', 'T-shirt', 'Mystery Box'].map((cat, index) => (
+                {['Attire', 'Camera', 'Phone', 'Laptop', 'T-shirt', 'Jeans', 'Shoe', 'Mystery Box'].map((cat, index) => (
                   <p
                     key={index}
                     className="hover:cursor-pointer"
