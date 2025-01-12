@@ -39,7 +39,7 @@ exports.createProduct = catchAsyncErrors(async (req, res, next) => {
 
 // Get All Product
 exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
-  const { keyword, category, minPrice, maxPrice, ratings, page = 1, limit = 4 } = req.query;
+  const { keyword, category, minPrice, maxPrice, ratings, page = 1, limit = 8 } = req.query;
 
   const query = {};
 

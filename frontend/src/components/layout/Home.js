@@ -15,7 +15,7 @@ export default function Home() {
         maxPrice: 100000,
         ratings: 0,
         page: 1,
-        limit: 4,
+        limit: 8,
     });
 
     useEffect(() => {

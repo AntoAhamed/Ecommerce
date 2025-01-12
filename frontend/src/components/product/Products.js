@@ -16,10 +16,10 @@ function Products() {
     keyword: '',
     category: '',
     minPrice: 0,
-    maxPrice: 100000,
+    maxPrice: 150000,
     ratings: 0,
     page: 1,
-    limit: 4,
+    limit: 6,
   });
 
   // Fetch products whenever filters change
